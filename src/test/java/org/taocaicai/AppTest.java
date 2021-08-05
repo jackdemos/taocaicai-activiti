@@ -115,8 +115,8 @@ public class AppTest {
     Task task =
         taskService
             .createTaskQuery()
-            .processDefinitionKey("evection")
-            .taskAssignee("zhangsan")
+            .processDefinitionKey("process-evection")
+            .taskAssignee("张三")
             .singleResult();
     /*完成任务*/
     taskService.complete(task.getId());
@@ -222,8 +222,11 @@ public class AppTest {
     ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
     RepositoryService repositoryService = processEngine.getRepositoryService();
     /** 获取流程定义的对象 */
-    ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
-            .processDefinitionKey("evection").singleResult();
+    ProcessDefinition processDefinition =
+        repositoryService
+            .createProcessDefinitionQuery()
+            .processDefinitionKey("process-evection")
+            .singleResult();
 
     /** 获取当前流程定义的状态 */
     boolean suspended = processDefinition.isSuspended();
@@ -233,11 +236,29 @@ public class AppTest {
     if (suspended) {
       /** 表示当前流程定义是挂起的 */
       repositoryService.activateProcessDefinitionById(id, true, null);
-      System.out.println("流程定义Id:" + id + "被挂起");
+      System.out.println("流程定义Id:" + id + "被激活");
     } else {
       /** 激话状态需要，设置为挂起 */
-      repositoryService.suspendProcessDefinitionByKey(id, true, null);
-      System.out.println("流程定义Id:" + id + "被激活");
+      repositoryService.suspendProcessDefinitionById(id, true, null);
+      System.out.println("流程定义Id:" + id + "被挂起");
+    }
+  }
+
+  /** 挂起单个流程实例 */
+  @Test
+  public void supendedSingle() {
+    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+    RuntimeService runtimeService = processEngine.getRuntimeService();
+    ProcessInstance processInstance =
+        runtimeService.createProcessInstanceQuery().processInstanceId("2501").singleResult();
+    boolean suspended = processInstance.isSuspended();
+    String id = processInstance.getId();
+    if(suspended){
+      runtimeService.activateProcessInstanceById(id);
+      System.out.println("流程实例Id:" + id + "被激活");
+    }else{
+      runtimeService.suspendProcessInstanceById(id);
+      System.out.println("流程实例Id:" + id + "被挂起");
     }
   }
 }

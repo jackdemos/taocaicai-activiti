@@ -6,7 +6,8 @@
 
     <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
         <property name="jdbcDriver" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://192.168.0.200:3306/activiti?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+        <property name="jdbcUrl"
+                  value="jdbc:mysql://192.168.0.200:3306/activiti?useSSL=false&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8"/>
         <property name="jdbcUsername" value="root"/>
         <property name="jdbcPassword" value="root"/>
         <!--数据库更新模式，会自动创建所需表-->

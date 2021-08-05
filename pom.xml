@@ -16,6 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+        <activiti-version>7.1.214</activiti-version>
     </properties>
 
     <dependencies>
@@ -28,12 +29,17 @@
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-core-dependencies</artifactId>
-            <version>7.1.0.M4</version>
+            <version>${activiti-version}</version>
         </dependency>
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-engine</artifactId>
-            <version>7.1.0.M2</version>
+            <version>${activiti-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-image-generator</artifactId>
+            <version>${activiti-version}</version>
         </dependency>
         <!--mysql-->
         <dependency>
